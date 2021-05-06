@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core" x:Class="SmartHotel.Clients.Core.Views.NuevaParcelaPaso3View" utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+
+            <Style x:Key="TituloSeccionStyle" TargetType="Label" BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+            </Style>
+
+            <!-- BOTON SIGUIENTE -->
+            <Color x:Key="NextButtonColor">#BD4B14</Color>
+
+            <Style x:Key="NextTextStyle" TargetType="Label" BasedOn="{StaticResource FiraSansSemiBoldLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid AutomationId="booking" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <controls:iOSStatusBarBackground Grid.Row="0" />
+            <Grid Grid.Row="1" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.4*" />
+                    <RowDefinition Height="7.6*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!-- Top image -->
+                <Image Grid.Row="0" Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="img_header_background_1" />
+                            <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+                <Label Grid.Row="0" Text="Volumen de copa" Style="{StaticResource TituloSeccionStyle}" />
+
+                <Grid BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1">
+                    <ScrollView>
+                        <StackLayout VerticalOptions="StartAndExpand" Padding="5">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="5" >
+                                <!--<Button Text="AR Método 1" 
+                                    HorizontalOptions="FillAndExpand"
+                                    BackgroundColor="{StaticResource TextFieldBGColor}"
+                                    TextColor="White"
+                                    HeightRequest="48"
+                                    Clicked="OnARMetodo1Click"></Button>-->
+                                <Button Text="Medición con realidad aumentada" 
+                                    HorizontalOptions="FillAndExpand"
+                                    BackgroundColor="{StaticResource TextFieldBGColor}"
+                                    TextColor="White"
+                                    HeightRequest="48"
+                                    Clicked="OnARMetodo2Click"></Button>
+                            </StackLayout>
+
+                            <Label Text="Número de mediciones:" Font="Bold"></Label>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="5">
+                                <Entry Keyboard="Numeric" WidthRequest="50" IsReadOnly="True" Text="{Binding NumMediciones, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                                <Button Text="Borrar mediciones" 
+                                    HorizontalOptions="FillAndExpand"
+                                    BackgroundColor="{StaticResource TextFieldBGColor}"
+                                    TextColor="White"
+                                    HeightRequest="32"
+                                    Clicked="OnResetMedicionClick"></Button>
+                            </StackLayout>
+
+                            <Label Text="Altura de copa media(H)(m):" Font="Bold"></Label>
+                            <Entry Keyboard="Numeric"  Text="{Binding CopaH, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                            <Label Text="Diámetro de copa / anchura en un eje (D1)(m):" Font="Bold"></Label>
+                            <Entry Keyboard="Numeric"  Text="{Binding CopaD1, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                            <Label Text="Diámetro perpendicular al primero (D2)(m):" Font="Bold"></Label>
+                            <Entry Keyboard="Numeric"  Text="{Binding CopaD2, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                            <Label Font="Bold">
+                                <Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="Android" Value="Vca(m³):" />
+                                        <On Platform="iOS" Value="Vca(m³):" />
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>
+                            <Entry IsEnabled="False" Text="{Binding CopaVCA, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                            <Image Source="{Binding URLPhoto}" WidthRequest="256" Aspect="AspectFit" />
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+                <!-- Salvar button -->
+                <Grid Grid.Row="2" AutomationId="continue" BackgroundColor="{StaticResource TextFieldBGColor}" HeightRequest="50">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NuevaParcelaCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Label Text="Insertar" Style="{StaticResource NextTextStyle}" />
+                </Grid>
+            </Grid>
+            <!-- CUANDO LLAMA A CARGAR UN DATO EN CUESTION -->
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+                <Label Text="Cargando datos" HorizontalOptions="Center" TextColor="White" />
+            </StackLayout>
+
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
+
+

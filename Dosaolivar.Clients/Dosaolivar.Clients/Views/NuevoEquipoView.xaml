@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ctrls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:templates="clr-namespace:SmartHotel.Clients.Core.Views.Templates;assembly=SmartHotel.Clients.Core" xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core" xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions" x:Class="SmartHotel.Clients.Core.Views.NuevoEquipoView" utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+
+            <xamanimation:StoryBoard x:Key="SuggestionsTranslationAnimation" Target="{x:Reference Suggestions}">
+                <xamanimation:TranslateToAnimation TranslateY="0" Easing="CubicOut" Duration="750" />
+            </xamanimation:StoryBoard>
+            <Style x:Key="SuggestionsListStyle" TargetType="ListView">
+                <Setter Property="HasUnevenRows" Value="True" />
+                <Setter Property="SeparatorVisibility" Value="None" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+            <Style x:Key="SuggestionTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0, 17" />
+            </Style>
+
+            <Color x:Key="SelectedBackgroundColor">#D7E8E9</Color>
+
+            <Style x:Key="TituloSeccionStyle" TargetType="Label" BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+            </Style>
+
+            <!-- BOTON SIGUIENTE -->
+            <Color x:Key="NextButtonColor">#BD4B14</Color>
+
+            <Style x:Key="NextTextStyle" TargetType="Label" BasedOn="{StaticResource FiraSansSemiBoldLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="BorrarStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="8" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid AutomationId="booking" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <controls:iOSStatusBarBackground Grid.Row="0" />
+        <Grid Grid.Row="1" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.4*" />
+                <RowDefinition Height="7.6*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!-- Top image -->
+            <Image Grid.Row="0" Aspect="AspectFill">
+                <Image.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <On Platform="Android, iOS" Value="img_header_background_1" />
+                        <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                    </OnPlatform>
+                </Image.Source>
+            </Image>
+            <Label Grid.Row="0" Text="Nuevo Equipo" Style="{StaticResource TituloSeccionStyle}" />
+            <Grid BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1">
+                <ScrollView>
+                    <StackLayout VerticalOptions="StartAndExpand" Padding="5">
+                        <Label Text="Marca:" Font="Bold"></Label>
+                        <Entry Text="{Binding Equipo.nombre, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                        <Label Text="Modelo:" Font="Bold"></Label>
+                        <Entry Text="{Binding Equipo.fabricante, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                        <Label Text="Nº de ROMA:" Font="Bold"></Label>
+                        <Entry Text="{Binding Equipo.nroma, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                        <Label Text="Nº de ROPO:" Font="Bold"></Label>
+                        <Entry  Text="{Binding Equipo.nropo, Mode=TwoWay}"  BackgroundColor="{StaticResource GrayColor}"  TextColor="Green"></Entry>
+                        <Button Text="Añadir Boquilla" Command="{Binding NuevaBoquillaCommand}"></Button>
+                        <ListView BackgroundColor="White" x:Name="Suggestions" AutomationId="suggestions" ItemsSource="{Binding Boquillas}" RowHeight="80" Style="{StaticResource SuggestionsListStyle}">
+                            <ListView.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40*" />
+                                        <ColumnDefinition Width="30*" />
+                                        <ColumnDefinition Width="10*" />
+                                        <ColumnDefinition Width="20*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Text="Marca/Color" Grid.Column="0" Grid.Row="0" />
+                                    <Label Text="Imagen" Grid.Column="1" Grid.Row="0" />
+                                    <Label Text="Cant." Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" />
+                                </Grid>
+                            </ListView.Header>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid x:Name="SuggestionCell" ColumnSpacing="0" BackgroundColor="{StaticResource WhiteColor}">
+                                            <Grid.HeightRequest>
+                                                <OnPlatform x:TypeArguments="x:Double">
+                                                    <On Platform="Android, iOS" Value="60" />
+                                                    <On Platform="UWP" Value="64" />
+                                                </OnPlatform>
+                                            </Grid.HeightRequest>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40*" />
+                                                <ColumnDefinition Width="30*" />
+                                                <ColumnDefinition Width="10*" />
+                                                <ColumnDefinition Width="20*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Text="{Binding des}" Style="{StaticResource SuggestionTextStyle}" HorizontalOptions="Start" />
+                                            <Image Grid.Column="1" Source="{Binding urlImageSource}" WidthRequest="72" Aspect="AspectFit" HorizontalOptions="Start" />
+                                            <Label Grid.Column="2" Text="{Binding cantidad}" Style="{StaticResource SuggestionTextStyle}" />
+                                            <Button Grid.Column="3" Text="Borrar" BindingContext="{Binding Source={x:Reference Suggestions}, Path=BindingContext}" Command="{Binding BorrarBoquillaCommand}"
+                            CommandParameter="{Binding Source={x:Reference SuggestionCell}, Path=BindingContext}" Style="{StaticResource BorrarStyle}" />
+
+
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+            <!-- Next button -->
+            <Grid Grid.Row="2" AutomationId="continue" BackgroundColor="{StaticResource TextFieldBGColor}" HeightRequest="50">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NuevoEquipoCommand}" />
+                </Grid.GestureRecognizers>
+                <Label Text="Insertar" Style="{StaticResource NextTextStyle}" />
+            </Grid>
+
+        </Grid>
+
+        <!-- CUANDO LLAMA A CARGAR UN DATO EN CUESTION  CommandParameter="{Binding pos}"  -->
+        <StackLayout IsVisible="{Binding IsBusy}" Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+            <Label Text="Cargando datos" HorizontalOptions="Center" TextColor="White" />
+        </StackLayout>
+
+
+    </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>
+
+
+
+<!--
+EJEMPLO FUNCIONANDO
+<ListView BackgroundColor="White" x:Name="Suggestions" AutomationId="suggestions" ItemsSource="{Binding Suggestions}" RowHeight="80" Style="{StaticResource SuggestionsListStyle}">
+                            <ListView.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="20*" />
+                                         <ColumnDefinition Width="20*" />
+                                         <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="20*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Text="Marca" Grid.Column="0" Grid.Row="0" />
+                                    <Label Text="Color" Grid.Column="1" Grid.Row="0" />
+                                    <Label Text="Serie" Grid.Column="2" Grid.Row="0" />
+                                    <Label Text="Cantidad" Grid.Column="3" Grid.Row="0" />
+                                    <Label Text="Accion" Grid.Column="4" Grid.Row="0" />
+                                </Grid>
+                            </ListView.Header>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid x:Name="SuggestionCell" ColumnSpacing="0" BackgroundColor="{StaticResource WhiteColor}">
+                                            <Grid.HeightRequest>
+                                                <OnPlatform x:TypeArguments="x:Double">
+                                                    <On Platform="Android, iOS" Value="60" />
+                                                    <On Platform="UWP" Value="64" />
+                                                </OnPlatform>
+                                            </Grid.HeightRequest>
+                                            <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="20*" />
+                                         <ColumnDefinition Width="20*" />
+                                         <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="20*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Text="{Binding}" Style="{StaticResource SuggestionTextStyle}" />
+                                             <Label Grid.Column="1" Text="#" Style="{StaticResource SuggestionTextStyle}" />
+                                             <Label Grid.Column="2" Text="#" Style="{StaticResource SuggestionTextStyle}" />
+                                             <Label Grid.Column="3" Text="#" Style="{StaticResource SuggestionTextStyle}" />
+                                            <Button Grid.Column="4" Text="Borrar" />
+
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+-->

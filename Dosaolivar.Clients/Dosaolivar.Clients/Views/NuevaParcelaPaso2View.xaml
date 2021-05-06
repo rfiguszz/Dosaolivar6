@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ctrls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:templates="clr-namespace:SmartHotel.Clients.Core.Views.Templates;assembly=SmartHotel.Clients.Core" xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core" xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions" x:Class="SmartHotel.Clients.Core.Views.NuevaParcelaPaso2View" utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+
+            <Style x:Key="TituloSeccionStyle" TargetType="Label" BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+            </Style>
+
+            <!-- BOTON SIGUIENTE -->
+            <Color x:Key="NextButtonColor">#BD4B14</Color>
+
+            <Style x:Key="NextTextStyle" TargetType="Label" BasedOn="{StaticResource FiraSansSemiBoldLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid AutomationId="booking" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <controls:iOSStatusBarBackground Grid.Row="0" />
+            <Grid Grid.Row="1" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.4*" />
+                    <RowDefinition Height="7.6*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!-- Top image -->
+                <Image Grid.Row="0" Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="img_header_background_1" />
+                            <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+                <Label Grid.Row="0" Text="Configurar parcela" Style="{StaticResource TituloSeccionStyle}" />
+               
+                <Grid BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1">
+                    <ScrollView>
+                        <StackLayout VerticalOptions="StartAndExpand" Padding="5">
+                            <Label Text="Tipo de cultivo:" Font="Bold"></Label>
+                            <Picker Title="Seleccione Sistema de Cultivo" ItemsSource="{Binding ListaSistemaCultivo }" ItemDisplayBinding="{Binding des}" SelectedItem="{Binding SelectedSistemaCultivo}"  TitleColor="Red"  BackgroundColor="{StaticResource GrayColor}" TextColor="Green"/>
+                            <Label Text="Marco de Plantación:" Font="Bold"></Label>
+                            <Picker Title="Seleccione Marco de Plantación" ItemsSource="{Binding ListaMarcoPlantacion }" ItemDisplayBinding="{Binding des}" SelectedItem="{Binding SelectedMarcoPlantacion}"  TitleColor="Red"   BackgroundColor="{StaticResource GrayColor}" TextColor="Green"  />
+                            <Label Text="Introduzca la distancia entre olivos:" Font="Bold"></Label>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                    <Label Text="Distancia 'S':"></Label>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                        <Picker  ItemsSource="{Binding SPickerNumeros }"  SelectedIndex="0"  SelectedItem="{Binding Parcela.s_metros}" TitleColor="Red"  BackgroundColor="{StaticResource GrayColor}" TextColor="Green"  MinimumWidthRequest="50" WidthRequest="50" />
+                                        <Label Text=","  VerticalTextAlignment="Center"></Label>
+                                        <Picker ItemsSource="{Binding PickerDecimales }" SelectedIndex="0"  SelectedItem="{Binding Parcela.s_decimales}" TitleColor="Red"  BackgroundColor="{StaticResource GrayColor}" TextColor="Green" MinimumWidthRequest="50" WidthRequest="50" />
+                                        <Label Text=" m"  VerticalTextAlignment="Center"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+                                    <Label Text="Distancia 'A':"></Label>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                         <Picker ItemsSource="{Binding APickerNumeros }" SelectedIndex="0" SelectedItem="{Binding Parcela.a_metros}" HorizontalOptions="Center"  TitleColor="Red"  BackgroundColor="{StaticResource GrayColor}" TextColor="Green" MinimumWidthRequest="50" WidthRequest="50" />
+                                        <Label Text=","  VerticalTextAlignment="Center"></Label>
+                                         <Picker ItemsSource="{Binding PickerDecimales }" SelectedIndex="0" SelectedItem="{Binding Parcela.a_decimales}"  TitleColor="Red"  BackgroundColor="{StaticResource GrayColor}" TextColor="Green" MinimumWidthRequest="50" WidthRequest="50" />
+                                        <Label Text=" m"  VerticalTextAlignment="Center"></Label> 
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                             <Label Text="Densidad de hojas:" Font="Bold"></Label>
+                            <Picker Title="Seleccione la densidad"  ItemsSource="{Binding ListaDensidadHojas }" ItemDisplayBinding="{Binding des}" SelectedItem="{Binding SelectedDensidadHojas}"  TitleColor="Red"  BackgroundColor="{StaticResource GrayColor}" TextColor="Green" MinimumWidthRequest="50" WidthRequest="50" />
+                            <Image Source="{Binding URLPhotoImageSource}" HeightRequest="256" Aspect="AspectFit" />
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+                <!-- Next button -->
+                <Grid Grid.Row="2" AutomationId="continue"  BackgroundColor="{StaticResource TextFieldBGColor}" HeightRequest="50">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NuevaParcelaCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Label Text="Continuar" Style="{StaticResource NextTextStyle}" />
+                </Grid>
+
+            </Grid>
+
+            <!-- CUANDO LLAMA A CARGAR UN DATO EN CUESTION -->
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+                <Label Text="Cargando datos" HorizontalOptions="Center" TextColor="White" />
+            </StackLayout>
+
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
+
+
+
+
+<!-- FORMULARIO PARA LAYOUT
+
+
+                <Grid BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1">
+                    <ScrollView>
+                        <StackLayout VerticalOptions="StartAndExpand" Padding="5">
+                            <Label Text="Tipo de cultivo:" Font="Bold"></Label>
+                            <Picker Title="Seleccione Sistema de Cultivo" TitleColor="Red" ItemsSource="{Binding ListaSistemaCultivo }" ItemDisplayBinding="{Binding des}" />
+                            <Label Text="Marco de Plantacion:" Font="Bold"></Label>
+                            <Picker Title="Seleccione Marco de Plantacion" TitleColor="Red" ItemsSource="{Binding ListaMarcoPlantacion }" ItemDisplayBinding="{Binding des}" />
+                            <Label Text="Introduzca la distancia entre olivos:" Font="Bold"></Label>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Yellow">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" BackgroundColor="Green">
+                                    <Label Text="Distancia 'S':"></Label>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" BackgroundColor="Red">
+                                        <Entry  Keyboard="Numeric" Placeholder="" MaxLength="2" Text=""  MinimumWidthRequest="40" WidthRequest="40"></Entry>
+                                        <Label Text=","  VerticalTextAlignment="Center"></Label>
+                                        <Entry  Keyboard="Numeric" Placeholder="" MaxLength="2" Text="" MinimumWidthRequest="40" WidthRequest="40"></Entry>
+                                        <Label Text=" m"  VerticalTextAlignment="Center"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" BackgroundColor="Blue">
+                                    <Label Text="Distancia 'A':"></Label>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" BackgroundColor="Violet">
+                                        <Entry  Keyboard="Numeric" Placeholder="" MaxLength="2" Text=""  MinimumWidthRequest="40" WidthRequest="40"></Entry>
+                                        <Label Text=","  VerticalTextAlignment="Center"></Label>
+                                        <Entry  Keyboard="Numeric" Placeholder="" MaxLength="2" Text="" MinimumWidthRequest="40" WidthRequest="40"></Entry>
+                                        <Label Text=" m"  VerticalTextAlignment="Center"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+
+
+
+ <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                    <Label Text="Distancia 'S':"></Label>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                        <Picker TitleColor="Red" ItemsSource="{Binding SPickerNumeros }" SelectedIndex="0"  MinimumWidthRequest="50" SelectedItem="{Binding Parcela.s_metros}"/>
+
+                                       <Entry  Keyboard="Numeric" Placeholder="" MaxLength="2" Text="{Binding Parcela.s_metros,Mode=TwoWay}"  MinimumWidthRequest="40" WidthRequest="40"></Entry>
+                                        <Label Text=","  VerticalTextAlignment="Center"></Label>
+                                        <Picker TitleColor="Red" MinimumWidthRequest="40" ItemsSource="{Binding SelectNumeros }" SelectedIndex="0"   SelectedItem="{Binding Parcela.s_decimales}"/>
+                                        <Entry  Keyboard="Numeric" Placeholder="" MaxLength="2" Text="{Binding Parcela.s_decimales,Mode=TwoWay}" MinimumWidthRequest="40" WidthRequest="40"></Entry>
+                                        <Label Text=" m"  VerticalTextAlignment="Center"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+                                    <Label Text="Distancia 'A':"></Label>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                         <Picker TitleColor="Red" MinimumWidthRequest="40" ItemsSource="{Binding APickerNumeros }" SelectedIndex="0"   SelectedItem="{Binding Parcela.a_metros}"/>
+                                        <Label Text=","  VerticalTextAlignment="Center"></Label>
+                                         <Picker TitleColor="Red" MinimumWidthRequest="40" ItemsSource="{Binding SelectNumeros }" SelectedIndex="0"   SelectedItem="{Binding Parcela.a_decimales}"/>
+                                        <Label Text=" m"  VerticalTextAlignment="Center"></Label> 
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+
+
+-->

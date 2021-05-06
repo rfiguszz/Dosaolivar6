@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ctrls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:templates="clr-namespace:SmartHotel.Clients.Core.Views.Templates;assembly=SmartHotel.Clients.Core" xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core" xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions" x:Class="SmartHotel.Clients.Core.Views.DetalleParcelaView" utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="MostrarInformacion" TargetType="Label" BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="Margin" Value="16, 5" />
+            </Style>
+            <Style x:Key="NextTextStyle" TargetType="Label" BasedOn="{StaticResource FiraSansSemiBoldLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <!-- BOTON TITULO ESTILO -->
+
+            <Style x:Key="TituloPaginaStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+                <Setter Property="BackgroundColor" 
+                        Value="Transparent" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid AutomationId="booking" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <controls:iOSStatusBarBackground Grid.Row="0" />
+            <Grid Grid.Row="1" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.4*" />
+                    <RowDefinition Height="7.6*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!-- Top image -->
+                <Image Grid.Row="0" Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="img_header_background_1" />
+                            <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+                <Button Text="Detalle Parcela" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Style="{StaticResource  TituloPaginaStyle}" />
+                <Grid BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1">
+                    <ScrollView>
+                        <StackLayout VerticalOptions="StartAndExpand" Padding="5">
+                            <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                                <Label Text="Nombre:" VerticalTextAlignment="Center" TextColor="White" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Entry Text="{Binding Parcela.nombre, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green" HorizontalOptions="FillAndExpand"></Entry>
+                            </StackLayout>
+
+                          <!--  <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                                <Label Text="Nombre:" Font="Bold" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Picker Title="Seleccione Sistema de Cultivo" ItemsSource="{Binding ListaSistemaCultivo }" ItemDisplayBinding="{Binding des}" SelectedItem="{Binding SelectedSistemaCultivo, Mode=TwoWay}" TitleColor="Red" BackgroundColor="{StaticResource GrayColor}" TextColor="Green" />
+                            </StackLayout> -->
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                                <Label Text="Localidad:" VerticalTextAlignment="Center" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Label Text="{Binding Parcela.localidad}" VerticalTextAlignment="Center" Font="Bold" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                                <Label Text="Área:" VerticalTextAlignment="Center" TextColor="White" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Entry Keyboard="Numeric" Text="{Binding Parcela.area_metros, Mode=TwoWay}" WidthRequest="60" MaxLength="4" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                                <Label Text="," Font="Bold" VerticalTextAlignment="Center"></Label>
+                                <Entry Keyboard="Numeric" Text="{Binding Parcela.area_decimales, Mode=TwoWay}" WidthRequest="50" MaxLength="2" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                                <Label Text="ha" VerticalTextAlignment="Center"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                                <Label Text="Tipo Olivar:" VerticalTextAlignment="Center" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Label Text="{Binding TipoOlivar}" VerticalTextAlignment="Center" Font="Bold" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                                <Label Text="Marco:" VerticalTextAlignment="Center" TextColor="White" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Label Text="{Binding TipoMarco}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" />
+                            </StackLayout>
+                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                                <Label Text="Nº árboles/ha:" VerticalTextAlignment="Center" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Label Text="{Binding DensidadPlantacionNha}" VerticalTextAlignment="Center" Font="Bold" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                                <Label Text="Sep. árboles:" VerticalTextAlignment="Center" TextColor="White" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Label Text="{Binding getSeparacionArboles}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" />
+                            </StackLayout>
+                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                                <Label Text="Datos Copa:" VerticalTextAlignment="Center" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Label Text="{Binding getCalculoVolumenCopa}" VerticalTextAlignment="Center" Font="Bold" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                                <Label Text="Densidad foliar:" VerticalTextAlignment="Center" TextColor="White" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Picker Title="Seleccione la densidad" TitleColor="Red"  ItemsSource="{Binding ListaDensidadHojas }" ItemDisplayBinding="{Binding des}" SelectedItem="{Binding SelectedDensidadHojas}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green" HorizontalOptions="FillAndExpand"/>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                                <Label Text="Vol.Copa/ha:" VerticalTextAlignment="Center" TextColor="White" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Label Text="{Binding getVCopaHectarea}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" />
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                                <Label Text="Volumen copa:" VerticalTextAlignment="Center" MinimumWidthRequest="100" WidthRequest="100" />
+                                <Label Text="{Binding getVCA}" VerticalTextAlignment="Center" Font="Bold" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                    <!--  <StackLayout VerticalOptions="StartAndExpand" Padding="10" HeightRequest="40">
+                         <Entry Text="{Binding Parcela.nombre, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                        <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                            <Label Text="Nombre:" VerticalTextAlignment="Center" TextColor="White"></Label>
+                            <Label Text="{Binding Parcela.nombre}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                            <Label Text="Localidad:" VerticalTextAlignment="Center"></Label>
+                            <Label Text="{Binding Parcela.localidad}" VerticalTextAlignment="Center" Font="Bold" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                            <Label Text="Area:" VerticalTextAlignment="Center" TextColor="White"></Label>
+                            <Label Text="{Binding getArea}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                            <Label Text="Tipo Olivar:" VerticalTextAlignment="Center"></Label>
+                            <Label Text="{Binding TipoOlivar}" VerticalTextAlignment="Center" Font="Bold" />
+                        </StackLayout>
+                        
+                        <Entry  BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                            <Label Text="Marco:" VerticalTextAlignment="Center" TextColor="White"></Label>
+                            <Picker Title="Seleccione la densidad" ItemsSource="{Binding ListaDensidadHojas }" ItemDisplayBinding="{Binding des}" SelectedItem="{Binding SelectedDensidadHojas}" TitleColor="Red" BackgroundColor="{StaticResource GrayColor}" TextColor="Green" MinimumWidthRequest="50" WidthRequest="50" />
+                            <Label Text="{Binding TipoMarco}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" /> 
+                        </StackLayout>
+                        <Picker Title="Seleccione la densidad" ItemsSource="{Binding ListaDensidadHojas }" ItemDisplayBinding="{Binding des}" SelectedItem="{Binding SelectedDensidadHojas}" TitleColor="Red" BackgroundColor="{StaticResource GrayColor}" TextColor="Green" MinimumWidthRequest="50" WidthRequest="50" />
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                            <Label Text="Anchura calle:" VerticalTextAlignment="Center"></Label>
+                            <Label Text="{Binding getAnchuraCalle}" VerticalTextAlignment="Center" Font="Bold" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                            <Label Text="Sep. árboles:" VerticalTextAlignment="Center" TextColor="White" />
+                            <Label Text="{Binding getSeparacionArboles}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                            <Label Text="Numero árboles/hectarea (Nha):" VerticalTextAlignment="Center" />
+                            <Label Text="{Binding DensidadPlantacionNha}" VerticalTextAlignment="Center" Font="Bold" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                            <Label Text="Densidad foliar:" VerticalTextAlignment="Center" TextColor="White" />
+                            <Label Text="{Binding TipoDensidad}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                            <Label Text="Datos Iniciales Vca" VerticalTextAlignment="Center" />
+                            <Label Text="{Binding getCalculoVolumenCopa}" VerticalTextAlignment="Center" Font="Bold" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                            <Label Text="Vol.Copa/ha:" VerticalTextAlignment="Center" TextColor="White" />
+                            <Label Text="{Binding getVCopaHectarea}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                            <Label Text="Volumen copa:" VerticalTextAlignment="Center" />
+                            <Label Text="{Binding getVCA}" VerticalTextAlignment="Center" Font="Bold" />
+                        </StackLayout>
+                       
+
+                     
+                    </StackLayout> -->
+                </Grid>
+                <!-- Edit & Delete -->
+                <Grid Grid.Row="2" AutomationId="continue" BackgroundColor="Yellow" HeightRequest="{Binding IsNextEnabled, Converter={StaticResource EnabledToHeightConverter}}">
+                    <StackLayout Spacing="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Blue" Margin="0,0" Padding="0,0,0,0">
+                        <Label Text="Actualizar" Style="{StaticResource NextTextStyle}" HeightRequest="{Binding IsNextEnabled, Converter={StaticResource EnabledToHeightConverter}}" BackgroundColor="{StaticResource TextFieldBGColor}" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UpdateParcelaCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="Eliminar" Style="{StaticResource NextTextStyle}" HeightRequest="{Binding IsNextEnabled, Converter={StaticResource EnabledToHeightConverter}}" BackgroundColor="Red" HorizontalOptions="FillAndExpand" VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DeleteParcelaCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+
+            </Grid>
+
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
+
+<!-- ALINEACION AL FINAL -->
+<!--
+
+         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5">
+                            <Label Text="Volumen copa:" VerticalTextAlignment="Center" />
+                            <Label Text="{Binding getVCA}" VerticalTextAlignment="Center" Font="Bold" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource TextFieldBGColor}" Padding="5">
+                            <Label Text="Vol.Copa/ha:" VerticalTextAlignment="Center" TextColor="White" />
+                            <Label Text="{Binding getVCopaHectarea}" VerticalTextAlignment="Center" Font="Bold" TextColor="White" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+
+
+-->
+

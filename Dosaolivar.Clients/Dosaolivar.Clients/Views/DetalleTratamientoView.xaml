@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ctrls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:templates="clr-namespace:SmartHotel.Clients.Core.Views.Templates;assembly=SmartHotel.Clients.Core" xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core" xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions" x:Class="SmartHotel.Clients.Core.Views.DetalleTratamientoView" utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+
+            <Style x:Key="TituloSeccionStyle" TargetType="Label" BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+            </Style>
+
+            <!-- BOTON SIGUIENTE -->
+            <Color x:Key="NextButtonColor">#BD4B14</Color>
+
+            <Style x:Key="NextTextStyle" TargetType="Label" BasedOn="{StaticResource FiraSansSemiBoldLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid AutomationId="booking" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <controls:iOSStatusBarBackground Grid.Row="0" />
+            <Grid Grid.Row="1" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.4*" />
+                    <RowDefinition Height="7.6*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!-- Top image -->
+                <Image Grid.Row="0" Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="img_header_background_1" />
+                            <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+                <Label Grid.Row="0" Text="Detalle Tratamiento" Style="{StaticResource TituloSeccionStyle}" />
+
+                <Grid BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1">
+                    <ScrollView>
+                        <StackLayout VerticalOptions="StartAndExpand" Padding="5">
+                            <Label Text="Nombre:" Font="Bold"></Label>
+                            <Entry Text="{Binding Tratamientos.nombre, Mode=TwoWay}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Fecha:"  VerticalOptions="Center"></Label>
+                                <Label Text="{Binding Tratamientos.fecha}" Font="Bold" VerticalOptions="Center"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Volumen de caldo (l/ha):"></Label>
+                                <Label Text="{Binding Tratamientos.volumen_caldo}" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Presión:"></Label>
+                                <Label Text="{Binding GetPresion}" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                            <Label />
+                            <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" />
+                            <Label />
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Productos utilizados:"></Label>
+                            </StackLayout>
+                            <Entry Text="{Binding Tratamientos.producto1des, Mode=TwoWay}" Placeholder="Producto 1" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                            <Entry Text="{Binding Tratamientos.producto2des, Mode=TwoWay}" Placeholder="Producto 2" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                            <Entry Text="{Binding Tratamientos.producto3des, Mode=TwoWay}" Placeholder="Producto 3" BackgroundColor="{StaticResource GrayColor}" TextColor="Green"></Entry>
+                             <Label />
+                            <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" />
+                            <Label />
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Materia activa:"></Label>
+                            </StackLayout>
+                            <Label Text="{Binding Tratamientos.materia1des}" Font="Bold" VerticalOptions="Center"></Label>
+                            <Label Text="{Binding Tratamientos.materia2des}" Font="Bold" VerticalOptions="Center"></Label>
+                            <Label Text="{Binding Tratamientos.materia3des}" Font="Bold" VerticalOptions="Center"></Label>
+
+                            <Label />
+                            <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" />
+                            <Label />
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Funciones activas:"></Label>
+                            </StackLayout>
+                            <Label Text="{Binding Tratamientos.funcion1des}" Font="Bold" VerticalOptions="Center"></Label>
+                            <Label Text="{Binding Tratamientos.funcion2des}" Font="Bold" VerticalOptions="Center"></Label>
+                            <Label Text="{Binding Tratamientos.funcion3des}" Font="Bold" VerticalOptions="Center"></Label>
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+                <!-- Edit & Delete -->
+                <Grid Grid.Row="2" AutomationId="continue" BackgroundColor="Yellow" HeightRequest="{Binding IsNextEnabled, Converter={StaticResource EnabledToHeightConverter}}">
+                    <StackLayout Spacing="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Blue" Margin="0,0" Padding="0,0,0,0">
+                        <Label Text="Actualizar" Style="{StaticResource NextTextStyle}" HeightRequest="{Binding IsNextEnabled, Converter={StaticResource EnabledToHeightConverter}}" BackgroundColor="{StaticResource TextFieldBGColor}" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UpdateTratamientoCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="Eliminar" Style="{StaticResource NextTextStyle}" HeightRequest="{Binding IsNextEnabled, Converter={StaticResource EnabledToHeightConverter}}" BackgroundColor="Red" HorizontalOptions="FillAndExpand" VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DeleteTratamientoCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+
+            </Grid>
+
+            <!-- CUANDO LLAMA A CARGAR UN DATO EN CUESTION -->
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+                <Label Text="Cargando datos" HorizontalOptions="Center" TextColor="White" />
+            </StackLayout>
+
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
+
+
+<!--
+
+
+  <StackLayout  HorizontalOptions="CenterAndExpand" WidthRequest="100" HeightRequest="30">
+                                <Button Text="RECALCULAR" Command="{Binding UpdateCalculosCommand}" BackgroundColor="{StaticResource GrayColor}" TextColor="Green" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" />
+                            </StackLayout>
+
+-->

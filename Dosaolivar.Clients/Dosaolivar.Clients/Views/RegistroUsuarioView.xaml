@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctrls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"
+             xmlns:templates="clr-namespace:SmartHotel.Clients.Core.Views.Templates;assembly=SmartHotel.Clients.Core"
+             xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+             xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"
+             xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core"
+             xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions" x:Class="SmartHotel.Clients.Core.Views.RegistroUsuarioView"
+             utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
+
+
+      <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="TituloSuperiorStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources> 
+
+    <ContentPage.Content>
+
+        <Grid AutomationId="booking" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <controls:iOSStatusBarBackground Grid.Row="0" />
+            <Grid Grid.Row="1" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.4*" />
+                    <RowDefinition Height="7.6*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!-- Top image -->
+                <Image Grid.Row="0" Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="img_header_background_1" />
+                            <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+
+                <Button Text="Nuevo usuario" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Style="{StaticResource  TituloSuperiorStyle}" />
+
+
+                <Grid BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1">
+                    <StackLayout VerticalOptions="StartAndExpand" Padding="5">
+                        <Label Text="Correo electronico:"></Label>
+                        <Entry Text="{Binding User.username, Mode=TwoWay}" PlaceholderColor="Green"  BackgroundColor="LightGray" Placeholder="Introduzca su correo electronico"></Entry>
+                        <Label Text="Introduzca su password"></Label>
+                        <Entry Text="{Binding User.password, Mode=TwoWay}" BackgroundColor="LightSlateGray"  Placeholder="Introduzca su clave" IsPassword="True"></Entry>
+                        <Label Text="Repita su password"></Label>
+                        <Entry Text="{Binding User.confirm_password, Mode=TwoWay}"  Placeholder="Confirme clave" IsPassword="True"></Entry>
+                        <Label Text="Nombre:"></Label>
+                        <Entry Text="{Binding User.first_name, Mode=TwoWay}" BackgroundColor="SlateGray" Placeholder="Nombre"></Entry>
+                        <Label Text="Apellidos"></Label>
+                        <Entry Text="{Binding User.last_name, Mode=TwoWay}" Placeholder="Apellidos"></Entry>
+
+                        <Button Text="Registrarse" Command="{Binding SignUpCommand}"></Button>
+
+
+
+                    </StackLayout>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
+
+<!-- ESTILO ANTIGUO
+
+<Style x:Key="NuevaParcelaStyle"
+                   TargetType="Button"
+                   BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource BigSize}" />
+                <Setter Property="BackgroundColor"
+                        Value="#80000000" />
+                        <Setter Property="Opacity"
+                        Value="0.50" />
+                 <Setter Property="VerticalOptions"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="0, 0, 0, 20" />
+                  <Setter Property="HeightRequest"
+                          Value="30" />
+            </Style>
+
+-->

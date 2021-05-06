@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SmartHotel.Clients.Core.Views.CalendarioTratamientosView" xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core" xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" BackgroundColor="{StaticResource WhiteColor}" utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <xamanimation:StoryBoard x:Key="CalendarTranslationAnimation" Target="{x:Reference Calendar}">
+                <xamanimation:TranslateToAnimation TranslateY="0" Easing="CubicOut" Duration="750" />
+            </xamanimation:StoryBoard>
+
+
+
+            <!-- INICIO LISTA TRATAMIENTOS -->
+
+
+            <Color x:Key="SearchTextColor">#48959B</Color>
+
+
+
+            <Style x:Key="NuevaItemStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+            </Style>
+
+            <Style x:Key="WhereTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+            </Style>
+
+
+
+            <Style x:Key="SearchFrameStyle" TargetType="Frame">
+                <Setter Property="Margin" Value="32, 0" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="HeightRequest" Value="48" />
+                <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="TranslationY" Value="-14" />
+                <Setter Property="Padding">
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android, iOS" Value="10, 0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SearchTextStyle" TargetType="Entry">
+                <Setter Property="FontFamily" Value="{StaticResource PoppinsRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="TextColor" Value="{StaticResource SearchTextColor}" />
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="Opacity" Value="1" />
+            </Style>
+
+            <Style x:Key="SuggestionsTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource OrangeColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="Margin" Value="34, 52, 0, 0" />
+                <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+            </Style>
+
+            <Style x:Key="SuggestionsListStyle" TargetType="ListView">
+                <Setter Property="HasUnevenRows" Value="True" />
+                <Setter Property="SeparatorVisibility" Value="None" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+
+
+
+            <Style x:Key="SuggestionTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="36, 17" />
+            </Style>
+
+             <Color x:Key="SelectedBackgroundColor">#D7E8E9</Color>
+
+            <!-- FIN LISTA TRATAMIETNOS  -->
+
+          
+
+            <Style x:Key="WhenTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Margin" Value="24, 0, 0, 18" />
+            </Style>
+
+            <Style x:Key="CityTextStyle" TargetType="Label" BasedOn="{StaticResource WhenTextStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="Margin" Value="24, 0, 0, 60" />
+            </Style>
+
+            <Style x:Key="SearchPanelStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="HeightRequest" Value="48" />
+            </Style>
+
+            <Style x:Key="RangeTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource GreenColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+            <Color x:Key="NextButtonColor">#BD4B14</Color>
+
+            <Style x:Key="NextTextStyle" TargetType="Label" BasedOn="{StaticResource FiraSansSemiBoldLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Color x:Key="SelectedDateColor">#48989D</Color>
+
+            <Style x:Key="DateRangeFrameStyle" TargetType="Frame">
+                <Setter Property="Margin" Value="32, 0" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="HeightRequest" Value="48" />
+                <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="TranslationY" Value="-14" />
+                <Setter Property="Padding">
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android, iOS" Value="10, 0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Triggers>
+        <EventTrigger Event="Appearing">
+            <xamanimation:BeginAnimation Animation="{StaticResource CalendarTranslationAnimation}" />
+        </EventTrigger>
+    </ContentPage.Triggers>
+    <ContentPage.Content>
+        <Grid AutomationId="calendar">
+            <Grid BackgroundColor="{StaticResource WhiteColor}" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.4*" />
+                    <RowDefinition Height="5.0*" />
+                    <RowDefinition Height="2.6*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <controls:iOSStatusBarBackground />
+                <!-- Top image -->
+                <Image Grid.Row="0" Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="img_header_background_1" />
+                            <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+                <Label Grid.Row="0" Text="Calendario Tratamientos" Style="{StaticResource WhenTextStyle}" />
+                <StackLayout Grid.Row="1">
+                    <StackLayout.Spacing>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="1" />
+                            <On Platform="iOS, UWP" Value="8" />
+                        </OnPlatform>
+                    </StackLayout.Spacing>
+                    <controls:ButtonFrame Style="{StaticResource DateRangeFrameStyle}">
+                        <Grid Style="{StaticResource SearchPanelStyle}">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <DatePicker  Format="dd-MMMM-yyyy" VerticalOptions="Center" BackgroundColor="{StaticResource GrayColor}" TextColor="Green" HorizontalOptions="FillAndExpand" />
+                            </StackLayout>
+                        </Grid>
+                    </controls:ButtonFrame>
+                </StackLayout>
+                <!-- Calendar -->
+
+                <!-- SelectedDates="{Binding Dates, Mode=TwoWay}" -->
+
+                <Grid Grid.Row="1" Margin="12, 48, 12, 12">
+                     <Label Text="{Binding GetAccionCalendario}" TextColor="Green" TranslationY="16" HorizontalOptions="Center" VerticalOptions="EndAndExpand"></Label>
+                    <controls:Calendar x:Name="Calendar" TranslationY="0" StartDay="Sunday" DatesFontSize="12" SelectedFontSize="12" WeekdaysFontSize="12" TitleLabelFontSize="20" SelectedBorderWidth="0" BorderWidth="0" DisabledFontSize="12" DisabledBorderWidth="6" EnableTitleMonthYearView="True" WeekdaysShow="True" WeekdaysFontAttributes="Bold" DisabledBorderColor="{StaticResource WhiteColor}" DisabledBackgroundColor="{StaticResource WhiteColor}" BorderColor="{StaticResource WhiteColor}" DatesBackgroundColor="{StaticResource WhiteColor}" TitleLeftArrowTextColor="Red" TitleRightArrowTextColor="{StaticResource DarkGrayColor}" SelectedTextColor="{StaticResource SelectedDateColor}" SelectedBorderColor="{StaticResource WhiteColor}" MultiSelectDates="False" DateCommand="{Binding SelectedDateCommand}" SpecialDates="{Binding Attendances}" HorizontalOptions="Center">
+                        <controls:Calendar.SelectedBackgroundImage>
+                            <OnPlatform x:TypeArguments="FileImageSource">
+                                <On Platform="Android, iOS" Value="ball" />
+                                <On Platform="UWP" Value="Assets/ball.png" />
+                            </OnPlatform>
+                        </controls:Calendar.SelectedBackgroundImage>
+                    </controls:Calendar>
+                </Grid>
+                                   
+                
+
+                <!-- DETALLE-->
+
+
+                <Grid Grid.Row="2" BackgroundColor="LightGray">
+                     <ListView  BackgroundColor="White" x:Name="Suggestions" AutomationId="suggestions" TranslationY="0" ItemsSource="{Binding Suggestions}" SelectedItem="{Binding Suggestion, Mode=TwoWay}" Style="{StaticResource SuggestionsListStyle}">
+
+                         <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid x:Name="SuggestionCell" ColumnSpacing="0" BackgroundColor="{StaticResource WhiteColor}">
+                                            <Grid.HeightRequest>
+                                                <OnPlatform x:TypeArguments="x:Double">
+                                                    <On Platform="Android, iOS" Value="60" />
+                                                    <On Platform="UWP" Value="64" />
+                                                </OnPlatform>
+                                            </Grid.HeightRequest>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="12" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="12" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="1" x:Name="SuggestionCorner" Aspect="AspectFit" IsVisible="{Binding Source={x:Reference Suggestions}, Path=SelectedItem, 
+                                                Converter={StaticResource SelectedToBoolConverter},
+                                                ConverterParameter={x:Reference SuggestionCell}}" Margin="0, 2">
+                                                <Image.Source>
+                                                    <OnPlatform x:TypeArguments="ImageSource">
+                                                        <On Platform="Android, iOS" Value="ball_left" />
+                                                        <On Platform="UWP" Value="Assets/ball_left.png" />
+                                                    </OnPlatform>
+                                                </Image.Source>
+                                            </Image>
+                                            <Grid Grid.Column="2" HeightRequest="{Binding Source={x:Reference SuggestionCorner}, Path=HeightRequest}" BackgroundColor="{StaticResource SelectedBackgroundColor}" IsVisible="{Binding Source={x:Reference Suggestions}, Path=SelectedItem, 
+                                                Converter={StaticResource SelectedToBoolConverter},
+                                                ConverterParameter={x:Reference SuggestionCell}}">
+                                                <Grid.Margin>
+                                                    <OnPlatform x:TypeArguments="Thickness">
+                                                        <On Platform="Android" Value="0, 6" />
+                                                        <On Platform="iOS, UWP" Value="0, 2" />
+                                                    </OnPlatform>
+                                                </Grid.Margin>
+                                            </Grid>
+                                            <Image Grid.Column="3" Aspect="AspectFit" IsVisible="{Binding Source={x:Reference Suggestions}, Path=SelectedItem, 
+                                                Converter={StaticResource SelectedToBoolConverter},
+                                                ConverterParameter={x:Reference SuggestionCell}}" Margin="0, 2">
+                                                <Image.Source>
+                                                    <OnPlatform x:TypeArguments="ImageSource">
+                                                        <On Platform="Android, iOS" Value="ball_right" />
+                                                        <On Platform="UWP" Value="Assets/ball_right.png" />
+                                                    </OnPlatform>
+                                                </Image.Source>
+                                            </Image>
+                                            <Label Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding}" Style="{StaticResource SuggestionTextStyle}" />
+
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+
+                </Grid>
+                <!-- Next button -->
+                <Grid AutomationId="continue" Grid.Row="3" BackgroundColor="{StaticResource NextButtonColor}" HeightRequest="{Binding IsNextEnabled, Converter={StaticResource EnabledToHeightConverter}}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NextCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Label Text="Seleccionar" Style="{StaticResource NextTextStyle}" />
+                </Grid>
+            </Grid>
+            <ActivityIndicator Color="{StaticResource AccentColor}" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

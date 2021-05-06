@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/ux_fragment"
+        android:name="com.google.ar.sceneform.ux.ArFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/screenshot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription=""
+        android:visibility="gone"
+        android:background="#1B90EB"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+ />
+
+    <SmartHotel.Clients.Droid.AR.ARViewActivity.Pizarra
+        android:id="@+id/pizarra"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription=""
+        android:visibility="gone"
+        android:scaleType="centerCrop"
+ />
+
+    <TextView
+        android:id="@+id/lblDistanciaRealTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Distancia desde la cámara"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnCalcular"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Calcular"
+        android:visibility="gone"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btnContinuar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Continuar"
+        android:visibility="gone"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btnMedicionCopa"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Medir copa"
+        android:visibility="gone"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/lblAyuda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Texto de ayuda"
+        android:gravity="center"
+        android:padding="8dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/lblMidiendo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Midiendo"
+        android:gravity="center"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/lblH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/lblD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:padding="8dp"
+        android:visibility="gone" />
+
+</RelativeLayout>

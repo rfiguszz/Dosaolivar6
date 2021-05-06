@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.mercury.dosaolivar" android:versionCode="1" android:versionName="1.0">
+	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="29" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.NFC" />
+	<application android:label="Dosaolivar" android:largeHeap="true">
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBW-GFo0w0wXxrEAXSIBUZ3yF0ErW6jdlc" />
+		<!-- For Android API 28 or above -->
+		<uses-library android:name="org.apache.http.legacy" android:required="false" />
+		<meta-data android:name="com.google.ar.core" android:value="optional" />
+	</application>
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-feature android:name="com.google.ar.core.depth" />
+</manifest>
